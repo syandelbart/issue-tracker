@@ -1,0 +1,27 @@
+{% if issues %}
+<html lang="en">
+  <body>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Creation date</th>
+        <th>Creator</th>
+        <th>Assigned to</th>
+      </tr>
+      {% for issue in issues %}
+      <tr>
+        <td>{{issue.id}}</td>
+        <td><a href="/issue/{{issue.id}}">{{ issue.title }}</a></td>
+        <td>{{ issue.creation|date_float_tostring }}</td>
+        <td>{{issue.creator.realname }}</td>
+        <td>{{ issue.assignedto.realname }}</td>
+      </tr>
+
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+  </body>
+</html>

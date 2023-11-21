@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Issue List</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Issue List</title>
+    <style>
+      label {
+        display: block;
+
+        margin-bottom: 8px;
+      }
+
+      input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100px;
+      }
+
+      form {
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form id="search-form" method="get">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Search query</span
+          >
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Search query"
+          aria-describedby="inputGroup-sizing-default"
+          name="q"
+          id="search-input"
+          placeholder="Search..."
+        />
+      </div>
+    </form>
+
+    <div id="search-results"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var $searchInput = $("#search-input");
+        var $searchResults = $("#search-results");
+
+        $searchInput.on("input", function () {
+          var query = $searchInput.val();
+          if (query.length >= 3) {
+            // only search when query is at least 1 character
+            $.get("/issues/search/", { q: query }, function (data) {
+              $searchResults.html(data);
+            });
+          } else {
+            $searchResults.empty();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+{% endblock %}

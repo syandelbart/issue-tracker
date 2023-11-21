@@ -1,0 +1,31 @@
+<html lang="en">
+  <body>
+    {% if messages %}
+    <table class="table">
+      <thead>
+        <th>ID</th>
+        <th>Issue</th>
+        <th>Creator</th>
+        <th>Summary</th>
+      </thead>
+      {% for message in messages %}
+
+      <tr>
+        <td>{{message.id}}</td>
+        <td>
+          {% if message.issue %}
+          <a href="issue/{{message.issue.id}}">{{ message.issue.title }}</a>
+          {% endif %}
+        </td>
+        <td style="width: fit-content">{{message.creator.realname}}</td>
+
+        <td>{{message.summary }}</td>
+      </tr>
+
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+  </body>
+</html>
