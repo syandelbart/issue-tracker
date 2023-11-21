@@ -1,22 +1,20 @@
-"""
-URL configuration for issuetracker project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
+from issuetracker.views import (
+    issue_detail,
+    issue_list,
+    message_list,
+    search_issues,
+    search_messages,
+)
+
+app_name = "issues"
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("issues/", issue_list, name="issue_list"),
+    path("messages/", message_list, name="message_list"),
+    path("messages/search/", search_messages, name="search_messages"),
+    path("issues/search/", search_issues, name="search_issues"),
+    path("issue/<int:issue_id>/", issue_detail, name="issue_detail"),
 ]
